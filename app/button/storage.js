@@ -1,8 +1,10 @@
 import Observable from './util';
 
 const state = {
+  /* Other Reducer */
   x: 1,
   y: 1,
+  /* toDoItems Reducer */
   toDoItems: [
     {
       id: 1,

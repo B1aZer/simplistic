@@ -1,4 +1,5 @@
-import './button/storage';
+import $ from 'jquery';
+
 import './button/controller';
 import listener from './button/storage';
 
@@ -8,3 +9,5 @@ import listener from './button/storage';
   };
   w.s = simplistic;
 }(window));
+
+$(() => listener.emit('init'));
