@@ -2,10 +2,11 @@ import $ from 'jquery';
 import listener from './storage';
 
 $(() => {
-  listener.onChange('x', (value) => {
-    listener.change('y');
+  listener.onChange('todo-added', (value) => {
+    listener.emit('change-y');
+    $('attr-x').html(value);
   });
-  listener.onChange('y', (value) => {
+  listener.onChange('changed-y', (value) => {
+    console.info('wow2');
   });
-  listener.change('x');
 });
