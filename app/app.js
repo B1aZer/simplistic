@@ -8,4 +8,13 @@ import listener from './todos/storage';
   w.s = simplistic;
 }(window));
 
-$(() => listener.emit('init'));
+ready(() => listener.emit('init'));
+
+function ready(fn) {
+  if (document.readyState !== 'loading') {
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
