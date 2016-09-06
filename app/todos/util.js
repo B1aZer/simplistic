@@ -15,40 +15,42 @@ class Observable {
     this.callbacks[attr] = this.callbacks[attr] || [];
     this.callbacks[attr].push(callb);
   }
-  emit(name) {
+  emit(name, value) {
     const reducers = combine([reducerToDo, reducerOther]);
-    const state = reducers(name, this.state);
-    console.info(state);
+    const state = reducers(name, value, this.state);
     this.broadcast(name, state);
   }
 }
 
-/* TODO: move to reducers */
-function reducerToDo(name, state) {
+/* TODO:
+ * move to reducers
+ * immutable
+ */
+function reducerToDo(name, value, state) {
   if (name === 'todo-add') {
-    const toDoItems = [
+    state.toDoItems = [
       ...state.toDoItems,
-      {
-        id: 3,
-        name: 'test3',
-      },
+      state.newTodo,
     ];
-    return toDoItems;
+    return state.toDoItems;
+  } else if (name === 'todo-new-update') {
+    state.newTodo.name = value;
+    return state.newTodo;
   }
   return state;
 }
 
-function reducerOther(name, state) {
+function reducerOther(name, value, state) {
   return state;
 }
 
 /* UTIL */
 
 function combine(lst) {
-  return (name, state) => {
+  return (name, value, state) => {
     let res;
     for (const f of lst) {
-      res = f(name, res || state);
+      res = f(name, value, res || state);
     }
     return res;
   };

@@ -33,7 +33,7 @@
       <hr/>
       <to-do-list></to-do-list>
       <hr/>
-      <input type="text"/>
+      <input type="text" onkeyup="s.emit('todo-new-update', this.value)"/>
       <button class="btn btn-default" onclick="s.emit('todo-add')">Add To Do Item <span class="badge"><attr-x>0</attr-x></span></button>
       <hr/>
       <p>Condition: when items >= 4 create yellow border</p>
@@ -43,8 +43,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="build/app.bundle.js" charset="utf-8"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

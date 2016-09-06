@@ -1,11 +1,9 @@
-import $ from 'jquery';
-
-import './button/controller';
-import listener from './button/storage';
+import './todos/controller';
+import listener from './todos/storage';
 
 (function init(w) {
   const simplistic = {
-    emit: (name) => listener.emit(name),
+    emit: (name, value) => listener.emit(name, value),
   };
   w.s = simplistic;
 }(window));
