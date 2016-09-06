@@ -27,17 +27,18 @@ class Observable {
  * immutable
  */
 function reducerToDo(name, value, state) {
+  const newState = extend({}, state);
   if (name === 'todo-add') {
-    state.toDoItems = [
-      ...state.toDoItems,
-      state.newTodo,
+    newState.toDoItems = [
+      ...newState.toDoItems,
+      newState.newTodo,
     ];
-    return state.toDoItems;
+    return newState.toDoItems;
   } else if (name === 'todo-new-update') {
-    state.newTodo.name = value;
-    return state.newTodo;
+    newState.newTodo.name = value;
+    return newState.newTodo;
   }
-  return state;
+  return newState;
 }
 
 function reducerOther(name, value, state) {
@@ -54,6 +55,22 @@ function combine(lst) {
     }
     return res;
   };
+}
+
+function extend(out) {
+  out = out || {};
+
+  for (var i = 1; i < arguments.length; i++) {
+    if (!arguments[i])
+      continue;
+
+    for (var key in arguments[i]) {
+      if (arguments[i].hasOwnProperty(key))
+        out[key] = arguments[i][key];
+    }
+  }
+
+  return out;
 }
 
 export default Observable;
