@@ -21,6 +21,14 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <template id="to-do-item">
+    <div>
+      <h1> item {{id}} </h1>
+      <p> {{ name }}</p>
+      <img src="http://webcomponents.org/img/logo.svg">
+    </div>
+    </template>
   </head>
 
   <body>
@@ -31,7 +39,10 @@
     <div class="container theme-showcase" role="main">
       <h1> Todo Items </h1>
       <hr/>
-      <to-do-list></to-do-list>
+      <!-- single namespace -->
+      <to-do-list>
+        <to-do-item data-state="newTodo" data-template="#to-do-item"></to-do-item>
+      </to-do-list>
       <hr/>
       <input type="text" onkeyup="s.emit('todo-new-update', this.value)"/>
       <button class="btn btn-default" onclick="s.emit('todo-add')">Add To Do Item <span class="badge"><attr-x>0</attr-x></span></button>

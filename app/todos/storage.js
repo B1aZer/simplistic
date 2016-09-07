@@ -32,7 +32,7 @@ const state = {
     },
   ],
   newTodo: {
-    id: null,
+    id: 0,
     name: '',
     tasks: [],
   },
