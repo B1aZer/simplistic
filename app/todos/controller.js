@@ -1,19 +1,11 @@
 import listener from './storage';
 
 listener.on('init', (state) => {
-  const toDoItem = document.querySelector('to-do-item');
-  const templateId = toDoItem.dataset.template;
-  const stateVar = toDoItem.dataset.state;
-  const template = document.querySelector(templateId);
-  const clone = template.cloneNode(true);
-  const newItem = state[stateVar];
-  for (const key of Object.keys(newItem)) {
-    const reg = new RegExp(`{{\\s*${key}\\s*}}`, 'ig');
-    clone.innerHTML = clone.innerHTML.replace(reg, newItem[key]);
-  }
-  const fragment = document.importNode(clone.content, true);
-  const host = document.querySelector('to-do-item');
-  host.appendChild(fragment);
+  const toDoItems = document.querySelectorAll('component');
+  toDoItems.forEach((toDoItem) => {
+    populate(toDoItem, state);
+  });
+  //populate('to-do-list-item', state);
 });
 listener.on('todo-add', (toDoItems) => {
   // TODO: use template here
@@ -31,3 +23,38 @@ listener.on('todo-add', (toDoItems) => {
 });
 listener.on('change-y', (value) => {
 });
+
+function populate(item, state) {
+  console.info(item);
+  console.info(state);
+  const templateId = item.dataset.template;
+  const stateVar = item.dataset.state;
+  const template = document.querySelector(templateId);
+  const clone = template.cloneNode(true);
+  const newItem = state[stateVar];
+  if (Array.isArray(newItem)) {
+    const firstItem = newItem[0];
+    for (const key of Object.keys(firstItem)) {
+      const value = firstItem[key];
+      const reg = new RegExp(`{{\\s*${key}\\s*}}`, 'ig');
+      clone.innerHTML = clone.innerHTML.replace(reg, value);
+    }
+  } else if (typeof newItem === 'object') {
+    for (const key of Object.keys(newItem)) {
+      const value = newItem[key];
+      const reg = new RegExp(`{{\\s*${key}\\s*}}`, 'ig');
+      clone.innerHTML = clone.innerHTML.replace(reg, value);
+    }
+  } else {
+    console.info(newItem);
+    //const reg = new RegExp(`{{\\s*${key}\\s*}}`, 'ig');
+    //clone.innerHTML = clone.innerHTML.replace(reg, value);
+  }
+  const fragment = document.importNode(clone.content, true);
+  const innerComps = fragment.querySelectorAll('component');
+  innerComps.forEach((_item) => {
+    populate(_item, newItem);
+  });
+  item.appendChild(fragment);
+}
+

@@ -22,10 +22,25 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <template id="to-do-list-single-item">
+    <div>
+      <h3> hello {{id}} </h3>
+    </div>
+    </template>
+
+    <template id="to-do-list-item">
+    <div>
+      <h2> list {{id}} </h2>
+      <component data-state="{{ id }}" data-template="#to-do-list-single-item"></component>
+    </div>
+    </template>
+
     <template id="to-do-item">
     <div>
       <h1> item {{id}} </h1>
       <p> {{ name }}</p>
+      {{ tasks }}
+      <component data-state="tasks" data-template="#to-do-list-item"></component>
       <img src="http://webcomponents.org/img/logo.svg">
     </div>
     </template>
@@ -40,9 +55,7 @@
       <h1> Todo Items </h1>
       <hr/>
       <!-- single namespace -->
-      <to-do-list>
-        <to-do-item data-state="newTodo" data-template="#to-do-item"></to-do-item>
-      </to-do-list>
+      <component data-state="newTodo" data-template="#to-do-item"></component>
       <hr/>
       <input type="text" onkeyup="s.emit('todo-new-update', this.value)"/>
       <button class="btn btn-default" onclick="s.emit('todo-add')">Add To Do Item <span class="badge"><attr-x>0</attr-x></span></button>

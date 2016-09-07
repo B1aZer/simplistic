@@ -34,7 +34,11 @@ const state = {
   newTodo: {
     id: 0,
     name: '',
-    tasks: [],
+    tasks: [
+      {
+        id: 1,
+      },
+    ],
   },
 };
 
