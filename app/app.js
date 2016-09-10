@@ -17,6 +17,8 @@ ready(() => listener.emit('init'));
 // has objects or primitives. If the primitive
 // is array then merge and append each item to
 // parent. If array is empty don'r render.
+//
+// XSS CHECK
 
 function ready(fn) {
   if (document.readyState !== 'loading') {
