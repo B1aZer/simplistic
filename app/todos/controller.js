@@ -8,10 +8,11 @@ listener.on('init', (state) => {
   toDoItems.forEach((toDoItem) => {
     populate(toDoItem, state);
   });
-  //populate('to-do-list-item', state);
 });
 listener.on('todo-add', (toDoItems) => {
+  console.info(toDoItems);
   // TODO: use template here
+  /*
   const toDoList = document.querySelectorAll('to-do-list')[0];
   toDoList.innerHTML = '';
   for (const item of toDoItems) {
@@ -20,6 +21,7 @@ listener.on('todo-add', (toDoItems) => {
     toDoList.insertAdjacentHTML('beforeend', itemTemplate);
     // Dom search should e as easy as $('<item>').attr(id).is(1)
   }
+ */
   // !IMPORTATNT: no DOM traversing
   // $('attr-x').find('span').html(toDoItems.length);
   // $('attr-x').show();
