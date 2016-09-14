@@ -8,7 +8,7 @@ import listener from './todos/storage';
   w.s = simplistic;
 }(window));
 
-ready(() => listener.emit('init'));
+ready(() => { listener.emit('init'); console.timeStamp('init'); });
 
 // we could append templates to elements here
 // <tag template="some" data="item"

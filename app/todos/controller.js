@@ -11,20 +11,11 @@ listener.on('init', (state) => {
 });
 listener.on('todo-add', (toDoItems) => {
   console.info(toDoItems);
-  // TODO: use template here
-  /*
-  const toDoList = document.querySelectorAll('to-do-list')[0];
-  toDoList.innerHTML = '';
-  for (const item of toDoItems) {
-    // This should be as easy as $(<ProviderItem>).populate(providerObj) //
-    const itemTemplate = `<div><span class="name">${item.name}</span></div>`;
-    toDoList.insertAdjacentHTML('beforeend', itemTemplate);
-    // Dom search should e as easy as $('<item>').attr(id).is(1)
-  }
- */
-  // !IMPORTATNT: no DOM traversing
-  // $('attr-x').find('span').html(toDoItems.length);
-  // $('attr-x').show();
+  // qickly find a template in dom like
+  // component:id is 1
+  // component.find('data-template').is('#some').populate(toDoItems);
+  // or use js Class of the component
+  // to populate
 });
 listener.on('change-y', (value) => {
 });
@@ -47,6 +38,7 @@ function populate(item, state) {
 function replaceHtml(clone, newItem) {
   if (Array.isArray(newItem)) {
     const firstItem = newItem[0];
+    // set bindings here (data-binding="x")
     for (const key of Object.keys(firstItem)) {
       const value = firstItem[key];
       const reg = new RegExp(`{{\\s*${key}\\s*}}`, 'ig');
