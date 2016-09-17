@@ -19,6 +19,15 @@ ready(() => { listener.emit('init'); console.timeStamp('init'); });
 // parent. If array is empty don'r render.
 //
 // XSS CHECK
+//
+// It makes sense to separate bind and template
+// and remove Component completely.
+// Bind could create new scope. Like bind="array"
+// {{ element[0].one }} or similar.
+// In this case we would create full template
+// first and apply binding after that.
+//
+// ADD PREFIX
 
 function ready(fn) {
   if (document.readyState !== 'loading') {

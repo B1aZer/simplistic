@@ -4,10 +4,9 @@ import listener from './storage';
 // to enable binding if template and data in js
 //
 listener.on('init', (state) => {
-  const toDoItems = document.querySelectorAll('component');
-  toDoItems.forEach((toDoItem) => {
-    populate(toDoItem, state);
-  });
+  const body = document.querySelector('body');
+  templating(body);
+  populate(body, state);
 });
 listener.on('todo-add', (toDoItems) => {
   console.info(toDoItems);
@@ -20,22 +19,53 @@ listener.on('todo-add', (toDoItems) => {
 listener.on('change-y', (value) => {
 });
 
-function populate(item, state) {
-  const templateId = item.dataset.template;
-  const stateVar = item.dataset.state;
-  const template = document.querySelector(templateId);
-  const clone = template.cloneNode(true);
-  const newItem = state[stateVar];
-  const fragment = document.importNode(clone.content, true);
-  const innerComps = fragment.querySelectorAll('component');
-  innerComps.forEach((_item) => {
-    populate(_item, newItem);
+function templating(item) {
+  const bindings = item.querySelectorAll('[data-template]');
+  bindings.forEach((_item) => {
+    const templateId = _item.dataset.template;
+    const template = document.querySelector(templateId);
+    const clone = template.cloneNode(true);
+    const fragment = document.importNode(clone.content, true);
+    _item.appendChild(fragment);
+    templating(_item);
   });
-  item.appendChild(fragment);
-  replaceHtml(item, newItem);
 }
 
+function populate(item, state) {
+  const bindings = item.querySelectorAll('[data-state]');
+  bindings.forEach((_item) => {
+    if (hasClass(_item, 'populated')) return;
+    const stateVar = _item.dataset.state;
+    const newState = state[stateVar];
+    addClass(_item, 'populated');
+    populate(_item, newState);
+    replaceBindings(_item, newState);
+  });
+}
+
+function replaceBindings(item, state) {
+  if (!state) return;
+  const bindings = item.querySelectorAll('[data-bind]');
+  bindings.forEach((_item) => {
+    const variable = _item.dataset.bind;
+    const value = state[variable];
+    replaceEl(_item, value);
+  });
+}
+
+function replaceEl(item, value) {
+  if (typeof value === 'undefined') return;
+  if (Array.isArray(value)) {
+  } else if (typeof value === 'object') {
+  } else if (typeof value === 'function') {
+  } else {
+    item.outerHTML = value;
+  }
+}
+
+// Deprecated
 function replaceHtml(clone, newItem) {
+  console.dir(clone);
   if (Array.isArray(newItem)) {
     const firstItem = newItem[0];
     // set bindings here (data-binding="x")
@@ -57,3 +87,17 @@ function replaceHtml(clone, newItem) {
   }
 }
 
+function hasClass(el, className) {
+  if (el.classList) {
+    return el.classList.contains(className);
+  }
+  return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+}
+
+function addClass(el, className) {
+  if (el.classList) {
+    el.classList.add(className);
+  } else {
+    el.className += ' ' + className;
+  }
+}
