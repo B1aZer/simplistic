@@ -25,26 +25,27 @@
     <template id="to-do-list-single-item">
     <!--State Prim-->
     <div>
-      <h3> hello <span data-bind="id"></span> </h3>
+      <h3> hello <span class="single-item" data-bind="id"></span> </h3>
     </div>
     </template>
 
     <template id="to-do-list-item">
     <!--State Array-->
     <div>
-      <h2> list <span data-bind="id"></span> </h2>
+      <!--should be undefined-->
+      <h2> list <span class="list-item" data-bind="id"></span> </h2>
       <!--XSS -->
-      <h2> no bind <span data-bind="indexOf"></span> </h2>
-      <div data-state="id" data-template="#to-do-list-single-item"></div>
+      <h2> no bind <span class="list-item" data-bind="indexOf"></span> </h2>
+      <div data-state="0" data-template="#to-do-list-single-item"></div>
     </div>
     </template>
 
-    <template id="to-do-item">
+    <template id="to-do-item-template">
     <!--State Obj-->
     <div>
-      <h1> item <span data-bind="id"></span></h1>
-      <p data-bind="name"></p>
-      <span data-bind="tasks"></span>
+      <h1> item <span class="to-do-item" data-bind="id"></span></h1>
+      <p class="to-do-item" data-bind="name"></p>
+      <span class="to-do-item" data-bind="tasks"></span>
       <div data-state="tasks" data-template="#to-do-list-item"></div>
       <img src="http://webcomponents.org/img/logo.svg">
     </div>
@@ -57,7 +58,7 @@
     </nav>
 
     <div class="container theme-showcase" role="main">
-      <h1> Todo Items <span data-bind="x"></span></h1>
+      <h1> Todo Items <span data-bind="y"></span></h1>
       <hr/>
       <!-- single namespace -->
       <div id="1" data-state="x">
@@ -66,7 +67,7 @@
         </p>
         <span>Hello</span>
       </div>
-      <div data-state="newTodo" data-template="#to-do-item"></div>
+      <div id="to-do-item" data-state="newTodo" data-template="#to-do-item-template"></div>
       <hr/>
       <input type="text" onkeyup="s.emit('todo-new-update', this.value)"/>
       <button class="btn btn-default" onclick="s.emit('todo-add')">Add To Do Item <span class="badge"><attr-x>0</attr-x></span></button>

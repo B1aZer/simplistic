@@ -7,16 +7,20 @@ listener.on('init', (state) => {
   const body = document.querySelector('body');
   templating(body);
   populate(body, state);
+  cleanup();
 });
-listener.on('todo-add', (toDoItems) => {
-  console.info(toDoItems);
+listener.on('todo-add', (state) => {
+  //const body = document.querySelector('body');
+  const todo = document.querySelector('#to-do-item');
+  populate(todo, state);
+  cleanup();
   // qickly find a template in dom like
   // component:id is 1
   // component.find('data-template').is('#some').populate(toDoItems);
   // or use js Class of the component
   // to populate
 });
-listener.on('change-y', (value) => {
+listener.on('change-y', (state) => {
 });
 
 function templating(item) {
@@ -32,6 +36,8 @@ function templating(item) {
 }
 
 function populate(item, state) {
+  console.info(item);
+  console.info(state);
   const bindings = item.querySelectorAll('[data-state]');
   bindings.forEach((_item) => {
     if (hasClass(_item, 'populated')) return;
@@ -41,15 +47,22 @@ function populate(item, state) {
     populate(_item, newState);
     replaceBindings(_item, newState);
   });
+  replaceBindings(item, state);
 }
 
 function replaceBindings(item, state) {
+  /*
+   * Makes sense to remove css classes
+   * and merge with populate
+   */
   if (!state) return;
   const bindings = item.querySelectorAll('[data-bind]');
   bindings.forEach((_item) => {
+    if (hasClass(_item, 'binded')) return;
     const variable = _item.dataset.bind;
     const value = state[variable];
     replaceEl(_item, value);
+    addClass(_item, 'binded');
   });
 }
 
@@ -59,8 +72,15 @@ function replaceEl(item, value) {
   } else if (typeof value === 'object') {
   } else if (typeof value === 'function') {
   } else {
-    item.outerHTML = value;
+    item.innerHTML = value;
   }
+}
+
+function cleanup() {
+  const statings = document.querySelectorAll('[data-state]');
+  statings.forEach((_item) => removeClass(_item, 'populated'));
+  const bindings = document.querySelectorAll('[data-bind]');
+  bindings.forEach((_item) => removeClass(_item, 'binded'));
 }
 
 // Deprecated
@@ -92,6 +112,14 @@ function hasClass(el, className) {
     return el.classList.contains(className);
   }
   return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+}
+
+function removeClass(el, className) {
+  if (el.classList) {
+    el.classList.remove(className);
+  } else {
+    el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+  }
 }
 
 function addClass(el, className) {
