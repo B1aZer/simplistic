@@ -12,8 +12,10 @@ listener.on('init', (state) => {
 listener.on('todo-add', (state) => {
   //const body = document.querySelector('body');
   const todo = document.querySelector('#to-do-item');
-  populate(todo, state);
+  const newTodo = todo.cloneNode(true);
+  populate(newTodo, state);
   cleanup();
+  document.querySelector('.to-do-list').appendChild(newTodo);
   // qickly find a template in dom like
   // component:id is 1
   // component.find('data-template').is('#some').populate(toDoItems);
@@ -106,6 +108,8 @@ function replaceHtml(clone, newItem) {
     //clone.innerHTML = clone.innerHTML.replace(reg, value);
   }
 }
+
+// jQuery
 
 function hasClass(el, className) {
   if (el.classList) {

@@ -58,16 +58,18 @@
     </nav>
 
     <div class="container theme-showcase" role="main">
-      <h1> Todo Items <span data-bind="y"></span></h1>
-      <hr/>
-      <!-- single namespace -->
-      <div id="1" data-state="x">
-        <p data-bind="a">Inner Bindings
-          <div id="2" data-state="x"></div>
-        </p>
-        <span>Hello</span>
+      <div class="to-do-list">
+        <h1> Todo Items <span data-bind="y"></span></h1>
+        <hr/>
+        <!-- single namespace -->
+        <div id="1" data-state="x">
+          <p data-bind="a">Inner Bindings
+            <div id="2" data-state="x"></div>
+          </p>
+          <span>Hello</span>
+        </div>
+        <div id="to-do-item" data-state="newTodo" data-template="#to-do-item-template"></div>
       </div>
-      <div id="to-do-item" data-state="newTodo" data-template="#to-do-item-template"></div>
       <hr/>
       <input type="text" onkeyup="s.emit('todo-new-update', this.value)"/>
       <button class="btn btn-default" onclick="s.emit('todo-add')">Add To Do Item <span class="badge"><attr-x>0</attr-x></span></button>

@@ -5,6 +5,7 @@ export function reducerToDo(action, state) {
       ...state.toDoItems,
       state.newTodo,
     ];
+    newState.newTodo.id += 1;
     return newState.newTodo;
   } else if (action.name === 'todo-new-update') {
     newState.newTodo.name = action.value;
