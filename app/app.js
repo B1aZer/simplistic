@@ -28,6 +28,12 @@ ready(() => { listener.emit('init'); console.timeStamp('init'); });
 // first and apply binding after that.
 //
 // ADD PREFIX
+//
+// move templates to separate files
+//
+// eliminate append and any other html manipulations
+// count only on template custom tags/attriutes and
+// scope 'populate'
 
 function ready(fn) {
   if (document.readyState !== 'loading') {

@@ -1,3 +1,6 @@
+/* Any state mutations are done here
+*/
+
 export function reducerToDo(action, state) {
   const newState = Object.assign({}, state);
   if (action.name === 'todo-add') {
@@ -9,6 +12,8 @@ export function reducerToDo(action, state) {
     return newState.newTodo;
   } else if (action.name === 'todo-new-update') {
     newState.newTodo.name = action.value;
+    return newState.newTodo;
+  } else if (action.name === 'todo-click') {
     return newState.newTodo;
   }
   return newState;

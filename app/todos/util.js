@@ -1,3 +1,6 @@
+/* Main library code
+ */
+
 import reducers from './reducers';
 
 class Observable {
@@ -20,7 +23,9 @@ class Observable {
   emit(name, value) {
     const action = { name, value };
     const reducedState = reducers(action, this.state);
+    const newState = Object.assign({}, this.state, reducedState);
     this.broadcast(name, reducedState);
+    this.broadcast('stateChanged', newState);
   }
 }
 
