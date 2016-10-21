@@ -1,5 +1,5 @@
-import listener from './storage';
 import { partialRight, unary, get } from 'lodash';
+import listener from './storage';
 
 // you can just create TODOapp aclass
 // to enable binding of template and data in js
@@ -55,6 +55,10 @@ listener.on('todo-add', (state) => {
   // to populate
 });
 listener.on('change-y', (state) => {
+});
+listener.on('some-process', () => {
+  // change x.x.b
+  listener.emit('change-b');
 });
 
 function templating(item) {

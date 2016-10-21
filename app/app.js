@@ -34,6 +34,11 @@ ready(() => { listener.emit('init'); console.timeStamp('init'); });
 // eliminate append and any other html manipulations
 // count only on template custom tags/attriutes and
 // scope 'populate'
+//
+// We could create HTML driver that would update DOM
+// based on tags. It could watch state and make efficient
+// updates. In this case we would eliminate any
+// controller DOM manipulations.
 
 function ready(fn) {
   if (document.readyState !== 'loading') {

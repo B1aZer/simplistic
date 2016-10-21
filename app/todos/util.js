@@ -1,6 +1,7 @@
 /* Main library code
  */
 
+import { isEqual } from 'lodash';
 import reducers from './reducers';
 
 class Observable {
@@ -22,10 +23,17 @@ class Observable {
   }
   emit(name, value) {
     const action = { name, value };
+    // pass copy of the state to reducer so it could update it
     const reducedState = reducers(action, this.state);
     const newState = Object.assign({}, this.state, reducedState);
     this.broadcast(name, reducedState);
-    this.broadcast('stateChanged', newState);
+    if (!isEqual(this.state, newState)) {
+      this.broadcast('stateChanged', newState);
+      this.state = Object.assign({}, this.state, newState);
+    } else {
+      console.info('equal');
+      console.info(newState);
+    }
   }
 }
 

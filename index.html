@@ -50,7 +50,7 @@
 
       <span class="to-do-item" data-bind="tasks"></span>
 
-      <div data-state="tasks" data-template="#to-do-list-item" data-array="true"></div>
+      <div data-state="tasks" data-template="#to-do-list-item"></div>
 
       <img src="http://webcomponents.org/img/logo.svg">
     </div>
@@ -82,6 +82,7 @@
       <hr/>
       <input type="text" onkeyup="s.emit('todo-new-update', this.value)"/>
       <button class="btn btn-default" onclick="s.emit('todo-add')">Add To Do Item <span class="badge"><attr-x>0</attr-x></span></button>
+      <button type="button" onclick="s.emit('some-process')">no state change</button>
       <hr/>
       <p>Condition: when items >= 4 create yellow border</p>
     </div> <!-- /container -->
