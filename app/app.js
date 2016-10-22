@@ -1,3 +1,4 @@
+import './bootstrap';
 import './todos/controller';
 import listener from './todos/storage';
 
@@ -39,6 +40,14 @@ ready(() => { listener.emit('init'); console.timeStamp('init'); });
 // based on tags. It could watch state and make efficient
 // updates. In this case we would eliminate any
 // controller DOM manipulations.
+//
+// We need to structure app as libraray.
+// Meaning we need to abstract all methods to single
+// file and eexport from that file.
+//
+// Dependant files could either import methods from that
+// file or import whole library and use something like
+// s.defineTag or s.defineStorage.
 
 function ready(fn) {
   if (document.readyState !== 'loading') {

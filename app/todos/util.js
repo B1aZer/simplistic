@@ -37,4 +37,25 @@ class Observable {
   }
 }
 
+/*
+ * usage
+s.defineTag({
+  name: 'if',
+  link: function(el, value) {
+    if (value) {
+      el.style.display = '';
+    } else {
+      el.style.display = 'none';
+    }
+  }
+})
+*/
+class CustomTag {
+  constructor(obj) {
+    this.name = obj.name;
+    this.link = obj.link;
+  }
+}
+
+
 export default Observable;
