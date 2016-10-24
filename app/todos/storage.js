@@ -3,7 +3,12 @@
  */
 
 import Observable from './util';
+// import s
+// import define from s
+// define('storage', storage);
 
+// s.storage(storage);
+// is this inversion of control
 const state = {
   /* Other Reducer */
   x: {

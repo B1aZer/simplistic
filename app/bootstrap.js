@@ -1,13 +1,50 @@
 import { partialRight, unary, get } from 'lodash';
 import listener from './todos/storage';
 
+// we need to move this to a controller or
+// element related portion of the code
 listener.on('init', (state) => {
   const body = document.querySelector('body');
-  templating(body);
-  createBindings(body);
+  //templating(body);
+  //createBindings(body);
   //populate(body, state);
-  cleanup();
+  //cleanup();
+  bootstrap(body);
 });
+
+function bootstrap(el) {
+  const bindings = el.querySelectorAll('[data-bind]');
+  bindings.forEach((_item) => {
+    // component = new BindComponent(state?)
+    const value = _item.dataset.bind;
+    // component.setbinding(el, valueS);
+    // where values -> values[this.attribute];
+  });
+}
+
+// we only need to set watchers in bootstrap
+//
+// all DOM manipulations should be defined in customTags(atrributes)
+// so that new tags/atrributes could be added easily.
+//
+// we need to set callbacks for async events (template loading), this
+// callback should also be defind in CustomTags. Bootstrap should be
+// on result of this callback (and be recursive).
+//
+// We need to remove data-state attribute as it would only make sense
+// with data-template. Do we could merge hem together in a single
+// tag/attribute.
+//
+// Templating/Binding logic should be encapsulated in a single DOM
+// driver module. IT would take care of CustomTags/attributes
+// processing by setting watchers (with async support).
+//
+// Pseudo code:
+//
+// *. Take all custom defined tags/attributes.
+// *. Set watchers for each one,
+// *. Define custom methods (StateCHanged/TemplateLoaded) hasState
+// *. and set them as callback to watchers.
 
 function templating(item) {
   const bindings = item.querySelectorAll('[data-template]');

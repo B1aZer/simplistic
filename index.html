@@ -16,77 +16,32 @@
     <!-- Bootstrap theme -->
     <link href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <template id="to-do-list-single-item">
-    <!--State Prim-->
-    <div>
-      <h3> Single array item id=<span class="single-item" data-bind="id"></span> </h3>
-      <button class="btn btn-default" onclick="s.emit('todo-click')">Click Me To change This ID</button>
-    </div>
-    </template>
-
-    <template id="to-do-list-item">
-    <!--State toDo.tasks Array-->
-    <div>
-      <!--should be undefined-->
-      <h2> task list id=<span class="list-item" data-bind="id"></span> </h2>
-      <!--XSS -->
-      <p> no bind func=<span class="list-item" data-bind="indexOf"></span> </p>
-      <div data-state="0" data-template="#to-do-list-single-item"></div>
-    </div>
-    </template>
-
-    <!-- !It's important to know what state we are in -->
-    <template id="to-do-item-template">
-    <!--State toDo Obj-->
-    <div>
-      <h1> Todo item id=<span class="to-do-item" data-bind="id"></span></h1>
-      <p class="to-do-item" data-bind="name"></p>
-
-      <span class="to-do-item" data-bind="tasks"></span>
-
-      <div data-state="tasks" data-template="#to-do-list-item"></div>
-
-      <img src="http://webcomponents.org/img/logo.svg">
-    </div>
-    </template>
   </head>
 
   <body>
 
-    <!-- Fixed navbar -->
-    </nav>
+    <div class="container" reducer="to-do-app">
+      <p> In future we will put all apps in subdirectories and create routes.
+          But for now single index page will do.
+      </p>
+      <div class="to-do-list" template reducer="to-do-list"></div>
 
-    <div class="container theme-showcase" role="main">
-      <div class="to-do-list">
-        <h1> Todo Items y=<span data-bind="y"></span></h1>
+      <div class="todos" reducer="to-do-list">
+        <h3>Todo List (should be here)</h3>
         <hr/>
-        <!-- single namespace -->
-        <h3>Sample Object</h3>
-        <div id="1" data-state="x">
-          <p data-bind="a">Inner Bindings
-            <div id="2" data-state="x">
-              <p data-bind="b">Inner Bindings #2
-            </div>
-          </p>
-          <span>Hello</span>
+        <div reducer="to-do-new">
+          <h3>New Item</h3>
+          <span bind></span>
+          <input type="text" reducer="to-do-new-text" emit(this.val) />
+          <button type="button" emit>Add Todo</button>
         </div>
-        <div id="to-do-item" data-state="newTodo" data-template="#to-do-item-template"></div>
-        <!--<div id="to-do-items" data-state="toDoItems" data-template="#to-do-item-template" data-array="true"></div>-->
       </div>
-      <hr/>
-      <input type="text" onkeyup="s.emit('todo-new-update', this.value)"/>
-      <button class="btn btn-default" onclick="s.emit('todo-add')">Add To Do Item <span class="badge"><attr-x>0</attr-x></span></button>
-      <button type="button" onclick="s.emit('some-process')">no state change</button>
-      <hr/>
-      <p>Condition: when items >= 4 create yellow border</p>
-    </div> <!-- /container -->
 
+      <div class="other" state>
+        <h3>Other</h3>
+      </div>
+
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

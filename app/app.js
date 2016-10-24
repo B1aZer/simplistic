@@ -1,5 +1,6 @@
 import './bootstrap';
 import './todos/controller';
+import './components';
 import listener from './todos/storage';
 
 (function init(w) {
@@ -9,6 +10,9 @@ import listener from './todos/storage';
   w.s = simplistic;
 }(window));
 
+//
+// This event should fired when all
+// async code is finished
 ready(() => { listener.emit('init'); console.timeStamp('init'); });
 
 // we could append templates to elements here
