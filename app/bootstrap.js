@@ -15,6 +15,9 @@ listener.on('init', (state) => {
 /*
  * SomeTree()
  *
+ * simple tree:
+ * https://code.tutsplus.com/articles/data-structures-with-javascript-tree--cms-23393
+ *
  * maybe create binary tree
  * el:
  * left: children
@@ -22,6 +25,7 @@ listener.on('init', (state) => {
  *
  * To quicky knwo if this is a child or a
  * parent.
+ *
  */
 
 function bootstrap(el) {
