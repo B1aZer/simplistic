@@ -12,14 +12,36 @@ listener.on('init', (state) => {
   bootstrap(body);
 });
 
+/*
+ * SomeTree()
+ *
+ * maybe create binary tree
+ * el:
+ * left: children
+ * right: parent
+ *
+ * To quicky knwo if this is a child or a
+ * parent.
+ */
+
 function bootstrap(el) {
-  const bindings = el.querySelectorAll('[data-bind]');
+  const bindings = el.querySelectorAll('[data-*]');
+  if (hasClass(el, 'sed')) {
+    return;
+  }
   bindings.forEach((_item) => {
+    console.info(_item);
+    addClass(_item, 'sed');
+    bootstrap(_item);
     // component = new BindComponent(state?)
-    const value = _item.dataset.bind;
     // component.setbinding(el, valueS);
     // where values -> values[this.attribute];
   });
+  // processSelf
+  // someTree.addAdjustedNode(el);
+  // pos = sometree.getPosition()
+  // state = getState(pos)
+  // compnent.setBindin(el, state)
 }
 
 // we only need to set watchers in bootstrap
