@@ -26,7 +26,14 @@ listener.on('init', (state) => {
  * To quicky knwo if this is a child or a
  * parent.
  *
+ * Or reducer = Reducer(name)
+ * prepend state to bind
+ *
+ * something like listen.on(reduce(reduce(state)))
+ *
+ *
  */
+
 
 function bootstrap(el) {
   const bindings = el.querySelectorAll('[data-*]');
